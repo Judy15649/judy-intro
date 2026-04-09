@@ -63,7 +63,9 @@ SYSTEM_PROMPT = f"""你是淨祺的個人介紹助手，負責介紹她的職涯
 
 @app.route('/')
 def index():
-    return send_from_directory(os.path.join(BASE_DIR, 'public'), 'index.html')
+    html_path = os.path.join(BASE_DIR, 'public', 'index.html')
+    with open(html_path, 'r', encoding='utf-8') as f:
+        return f.read(), 200, {'Content-Type': 'text/html; charset=utf-8'}
 
 
 @app.post('/api/chat')
