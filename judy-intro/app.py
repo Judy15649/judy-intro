@@ -2,7 +2,8 @@ import os
 from flask import Flask, request, jsonify, send_from_directory
 import anthropic
 
-app = Flask(__name__, static_folder='public', static_url_path='')
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+app = Flask(__name__, static_folder=os.path.join(BASE_DIR, 'public'), static_url_path='')
 
 BIO = """# 關於淨祺的完整資料
 
@@ -62,7 +63,7 @@ SYSTEM_PROMPT = f"""你是淨祺的個人介紹助手，負責介紹她的職涯
 
 @app.route('/')
 def index():
-    return send_from_directory('public', 'index.html')
+    return send_from_directory(os.path.join(BASE_DIR, 'public'), 'index.html')
 
 
 @app.post('/api/chat')
